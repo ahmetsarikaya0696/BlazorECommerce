@@ -1,0 +1,51 @@
+﻿<ul class="list-unstyled">
+    @foreach (var product in Products)
+    {
+        <li class="media my-3">
+            <div class="media-img-wrapper me-2">
+                <a href="#">
+                    <img class="media-img" src="@product.ImageUrl" alt="@product.Title" />
+                </a>
+            </div>
+            <div class="media-body">
+                <a href="#">
+                    <h4 class="mb-0">@product.Title</h4>
+                </a>
+                    <p>@product.Description</p>
+                    <h5 class="price">
+                        @product.Price <span>₺</span>
+                    </h5>
+            </div>
+        </li>
+    }
+</ul>
+
+@code {
+    private static List<Product> Products = new()
+    {
+        new()
+        {
+            Id = 1,
+            Title = "İnsanlığımı Yitirirken",
+            Description = "Yirminci yüzyıl Japon edebiyatının önde gelen yazarlarından, sıradışı hayatıyla da meşhur Osamu Dazai, intiharından hemen önce tamamladığı, Japonya'nın en çok okunan romanlarından İnsanlığımı Yitirirken'de topluma dahil olmayı beceremeyen, her şeyi eline yüzüne bulaştıran, çevresindeki herkesi hayal kırıklığına uğratmaya mahkum bir ötekinin acıklı hikayesini anlatıyor.",
+            ImageUrl = "https://m.media-amazon.com/images/I/51sVzc2P-5L._SY498_BO1,204,203,200_.jpg",
+            Price = 24.88m
+        },
+        new()
+        {
+            Id = 2,
+            Title = "Naruto: Itachi's Story, Vol. 1",
+            Description = "A new series of prose novels, straight from the worldwide Naruto franchise. Naruto’s allies and enemies take center stage in these fast-paced adventures, with each volume focusing on a particular clan mate, ally, team...or villain.",
+            ImageUrl = "https://m.media-amazon.com/images/I/51in42Zl3HL._SX331_BO1,204,203,200_.jpg",
+            Price = 228.26m
+        },
+        new()
+        {
+            Id = 3,
+            Title = "Attack on Titan 1",
+            Description = "Bu post-kıyamet bilim-fi hikayesinde insanlık, titan olarak bilinen tuhaf, dev insancılar tarafından devastated edilmiştir. Küçük şey, kimin kamerasından veya ne kadar tüketici adamında bent olduğu hakkında bilinir. Denizci olarak akıllı değildir, dünyayı yıllarca dolaştı, herkesi öldürmek için. Past century, soldaki kişinin devasa bir şehirde gizlenmiş olması için. İnsanlar 50 metre yüksekliğindeki duvarların titan korunduğuna inanır, ancak muazzam bir titanyumun sudden görünümü her şeyi değiştirmek için önemlidir.",
+            ImageUrl = "https://m.media-amazon.com/images/I/51r5Zr3BzCL._SX331_BO1,204,203,200_.jpg",
+            Price = 555.95m
+        },
+    };
+}
