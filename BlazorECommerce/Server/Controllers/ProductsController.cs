@@ -7,7 +7,7 @@ namespace BlazorECommerce.Server.Controllers
     [ApiController]
     public class ProductsController : ControllerBase
     {
-        private static List<Product> Products = new()
+        private readonly static List<Product> Products = new()
         {
             new()
             {
@@ -38,7 +38,8 @@ namespace BlazorECommerce.Server.Controllers
         [HttpGet]
         public async Task<IActionResult> GetProducts()
         {
-            await Task.Delay(5000);
+            // İlk çalıştırmada 3 saniye bekliyor ama sonrakilerde cache ' ten alıyor.
+            await Task.Delay(3000);
             return Ok(Products);
         }
     }
