@@ -1,7 +1,7 @@
 ﻿<ul class="list-unstyled">
     @foreach (var product in Products)
     {
-        <li class="media my-3">
+        <li class="media bg-light my-3">
             <div class="media-img-wrapper me-2">
                 <a href="#">
                     <img class="media-img" src="@product.ImageUrl" alt="@product.Title" />
@@ -11,10 +11,10 @@
                 <a href="#">
                     <h4 class="mb-0">@product.Title</h4>
                 </a>
-                    <p>@product.Description</p>
-                    <h5 class="price">
-                        @product.Price <span>₺</span>
-                    </h5>
+                <p>@product.Description</p>
+                <h5 class="price">
+                    @product.Price <span>₺</span>
+                </h5>
             </div>
         </li>
     }
@@ -26,9 +26,9 @@
         new()
         {
             Id = 1,
-            Title = "İnsanlığımı Yitirirken",
-            Description = "Yirminci yüzyıl Japon edebiyatının önde gelen yazarlarından, sıradışı hayatıyla da meşhur Osamu Dazai, intiharından hemen önce tamamladığı, Japonya'nın en çok okunan romanlarından İnsanlığımı Yitirirken'de topluma dahil olmayı beceremeyen, her şeyi eline yüzüne bulaştıran, çevresindeki herkesi hayal kırıklığına uğratmaya mahkum bir ötekinin acıklı hikayesini anlatıyor.",
-            ImageUrl = "https://m.media-amazon.com/images/I/51sVzc2P-5L._SY498_BO1,204,203,200_.jpg",
+            Title = "Life Is Beautiful",
+            Description = "In 1930s Italy, a carefree Jewish waiter-turned-bookseller named Guido starts a fairy tale life by courting and marrying a lovely woman teacher named Dora. Guido and Dora have a son named Joshua and live happily together until the forced deportation of the town's Jewish population in cattle cars. Dora, while not required to be deported, volunteers to leave with her family, and they are all forced to live in a concentration camp. In an attempt to hold his family together and help his son survive the horrors of a concentration camp, Guido imagines that the Holocaust is a game and that the grand prize for winning is a tank.",
+            ImageUrl = "https://www.miramax.com/assets/759_LifeIsBeautiful_Catalog_Poster_v2_Approved.png",
             Price = 24.88m
         },
         new()
