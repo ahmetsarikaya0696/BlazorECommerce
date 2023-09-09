@@ -1,22 +1,22 @@
 ﻿@inject IProductService ProductService;
 
-@if (ProductService.Products == null || ProductService.Products.Count == 0)
+@if (_products == null)
 {
     <p><em>Loading...</em></p>
 }
 else
 {
     <ul class="list-unstyled">
-        @foreach (var product in ProductService.Products)
+        @foreach (var product in _products)
         {
             <li class="media bg-light my-3">
                 <div class="media-img-wrapper me-2">
-                    <a href="#">
+                    <a href="/products/@product.Id">
                         <img class="media-img" src="@product.ImageUrl" alt="@product.Title" />
                     </a>
                 </div>
                 <div class="media-body">
-                    <a href="#">
+                    <a href="/products/@product.Id">
                         <h4 class="mb-0">@product.Title</h4>
                     </a>
                     <p>@product.Description</p>
@@ -30,8 +30,9 @@ else
 }
 
 @code {
+    private List<Product> _products;
     protected override async Task OnInitializedAsync()
     {
-       await ProductService.GetProducts();
+        _products = await ProductService.GetProductsAsync();
     }
 }

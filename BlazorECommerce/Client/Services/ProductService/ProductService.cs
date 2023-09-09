@@ -9,14 +9,20 @@
             _httpClient = httpClient;
         }
 
-        public List<Product> Products { get; set; } = new();
-
-        public async Task GetProducts()
+        public async Task<ServiceResponse<Product>> GetProductByIdAsync(int id)
         {
-            var result = await _httpClient.GetFromJsonAsync<ServiceResponse<List<Product>>>("api/Products");
+            var response = await _httpClient.GetFromJsonAsync<ServiceResponse<Product>>($"api/Products/{id}");
+            return response;
+        }
 
-            if (result != null && result.Data != null)
-                Products = result.Data;
+        public async Task<List<Product>> GetProductsAsync()
+        {
+            var response = await _httpClient.GetFromJsonAsync<ServiceResponse<List<Product>>>("api/Products");
+
+            if (response?.Success == true)
+                return response.Data;
+
+            return null;
         }
     }
 }

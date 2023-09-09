@@ -16,9 +16,16 @@ namespace BlazorECommerce.Server.Controllers
         [HttpGet]
         public async Task<ActionResult<ServiceResponse<List<Product>>>> GetProducts()
         {
-            // İlk çalıştırmada 3 saniye bekliyor ama sonrakilerde cache ' ten alıyor.
+            // İlk çalıştırmada 1 saniye bekliyor ama sonrakilerde cache ' ten alıyor.
             var response = await _productService.GetProductsAsync();
-            await Task.Delay(3000);
+            return Ok(response);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<ServiceResponse<Product>>> GetProductById(int id)
+        {
+            var response = await _productService.GetProductByIdAsync(id);
+            await Task.Delay(1000);
             return Ok(response);
         }
     }
