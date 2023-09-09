@@ -1,4 +1,6 @@
-using BlazorECommerce.Client;
+global using BlazorECommerce.Shared;
+global using System.Net.Http.Json;
+using BlazorECommerce.Client.Services.ProductService;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 
@@ -13,6 +15,8 @@ namespace BlazorECommerce.Client
             builder.RootComponents.Add<HeadOutlet>("head::after");
 
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+
+            builder.Services.AddScoped<IProductService, ProductService>();
 
             await builder.Build().RunAsync();
         }

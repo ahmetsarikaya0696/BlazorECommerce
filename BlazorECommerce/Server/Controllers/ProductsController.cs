@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace BlazorECommerce.Server.Controllers
 {
@@ -7,20 +6,20 @@ namespace BlazorECommerce.Server.Controllers
     [ApiController]
     public class ProductsController : ControllerBase
     {
-        private readonly ApplicationDbContext _dbContext;
+        private readonly IProductService _productService;
 
-        public ProductsController(ApplicationDbContext dbContext)
+        public ProductsController(IProductService productService)
         {
-            _dbContext = dbContext;
+            _productService = productService;
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<Product>>> GetProducts()
+        public async Task<ActionResult<ServiceResponse<List<Product>>>> GetProducts()
         {
             // İlk çalıştırmada 3 saniye bekliyor ama sonrakilerde cache ' ten alıyor.
-            var products = await _dbContext.Products.ToListAsync();
+            var response = await _productService.GetProductsAsync();
             await Task.Delay(3000);
-            return Ok(products);
+            return Ok(response);
         }
     }
 }
