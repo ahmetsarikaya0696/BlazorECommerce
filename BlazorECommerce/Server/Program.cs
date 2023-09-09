@@ -1,5 +1,6 @@
 global using BlazorECommerce.Shared;
-using Microsoft.AspNetCore.ResponseCompression;
+global using Microsoft.EntityFrameworkCore;
+global using BlazorECommerce.Server.Data;
 
 namespace BlazorECommerce
 {
@@ -10,6 +11,14 @@ namespace BlazorECommerce
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+
+            builder.Services.AddDbContext<ApplicationDbContext>(options =>
+            {
+                string connectionString = builder.Configuration.GetConnectionString("BlazorEcommerce")
+                            ?? throw new Exception("ConnectionString bulunamadý!");
+
+                options.UseSqlServer(connectionString);
+            });
 
             builder.Services.AddControllersWithViews();
             builder.Services.AddRazorPages();
