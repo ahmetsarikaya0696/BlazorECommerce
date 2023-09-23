@@ -11,14 +11,14 @@ namespace BlazorECommerce.Client.Services.CategoryService
             _httpClient = httpClient;
         }
 
-        public async Task<List<Category>> GetCategoriesAsync()
+        public List<Category> Categories { get; set; }
+
+        async Task ICategoryService.GetCategoriesAsync()
         {
             var response = await _httpClient.GetFromJsonAsync<ServiceResponse<List<Category>>>("api/Categories");
 
             if (response?.Success == true)
-                return response.Data;
-
-            return null;
+                Categories = response.Data;
         }
     }
 }

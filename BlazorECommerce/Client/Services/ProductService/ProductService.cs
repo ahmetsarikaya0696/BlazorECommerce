@@ -9,20 +9,29 @@
             _httpClient = httpClient;
         }
 
+        public List<Product> Products { get; set; }
+
+        public event Action ProductsChanged;
+
         public async Task<ServiceResponse<Product>> GetProductByIdAsync(int id)
         {
             var response = await _httpClient.GetFromJsonAsync<ServiceResponse<Product>>($"api/Products/{id}");
             return response;
         }
 
-        public async Task<List<Product>> GetProductsAsync()
+        public async Task GetProductsAsync(string categoryUrl)
         {
-            var response = await _httpClient.GetFromJsonAsync<ServiceResponse<List<Product>>>("api/Products");
+            string requestUrl = "api/Products";
+
+            if (categoryUrl != null)
+                requestUrl += $"/category/{categoryUrl}";
+
+            var response = await _httpClient.GetFromJsonAsync<ServiceResponse<List<Product>>>(requestUrl);
 
             if (response?.Success == true)
-                return response.Data;
+                Products = response.Data;
 
-            return null;
+            ProductsChanged.Invoke();
         }
     }
 }

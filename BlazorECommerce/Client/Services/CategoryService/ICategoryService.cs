@@ -2,6 +2,7 @@
 {
     public interface ICategoryService
     {
-        Task<List<Category>> GetCategoriesAsync();
+        List<Category> Categories { get; set; }
+        Task GetCategoriesAsync();
     }
 }

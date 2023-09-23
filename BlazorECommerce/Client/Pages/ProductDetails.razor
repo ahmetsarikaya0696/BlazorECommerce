@@ -28,7 +28,6 @@ else
 
     protected override async Task OnParametersSetAsync()
     {
-        await Task.Delay(1000);
         var response = await ProductService.GetProductByIdAsync(Id);
 
         if (!response.Success)

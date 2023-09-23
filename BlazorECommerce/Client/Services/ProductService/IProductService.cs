@@ -2,7 +2,9 @@
 {
     public interface IProductService
     {
-        Task<List<Product>> GetProductsAsync();
+        event Action ProductsChanged;
+        List<Product> Products { get; set; }
+        Task GetProductsAsync(string categoryUrl = null);
         Task<ServiceResponse<Product>> GetProductByIdAsync(int id);
     }
 }

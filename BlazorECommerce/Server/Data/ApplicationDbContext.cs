@@ -15,19 +15,22 @@
                 {
                     Id = 1,
                     Name = "Book",
-                    Url = "books"
+                    Url = "books",
+                    Icon = "oi oi-book"
                 },
                 new Category()
                 {
                     Id = 2,
                     Name = "Movie",
-                    Url = "movies"
+                    Url = "movies",
+                    Icon = "oi oi-camera-slr"
                 },
                  new Category()
                  {
                      Id = 3,
                      Name = "Video Games",
-                     Url = "video-games"
+                     Url = "video-games",
+                     Icon = "oi oi-puzzle-piece"
                  }
             };
 
@@ -56,7 +59,7 @@
                         Id = 3,
                         Title = "Nineteen Eighty-Four",
                         Description = "Nineteen Eighty-Four (also stylised as 1984) is a dystopian social science fiction novel and cautionary tale written by English writer George Orwell. It was published on 8 June 1949 by Secker & Warburg as Orwell's ninth and final book completed in his lifetime. Thematically, it centres on the consequences of totalitarianism, mass surveillance and repressive regimentation of people and behaviours within society.[2][3] Orwell, a democratic socialist, modelled the totalitarian government in the novel after Stalinist Russia and Nazi Germany.[2][3][4] More broadly, the novel examines the role of truth and facts within politics and the ways in which they are manipulated.",
-                        ImageUrl = "https://upload.wikimedia.org/wikipedia/commons/c/c3/1984first.jpg",
+                        ImageUrl = "https://static.wikia.nocookie.net/villains/images/8/80/Big-Brother-1984.jpg/revision/latest?cb=20190323152040",
                         CategoryId = 1
                     },
                     new()
