@@ -6,64 +6,64 @@ global using Microsoft.EntityFrameworkCore;
 
 namespace BlazorECommerce
 {
-    public class Program
-    {
-        public static void Main(string[] args)
-        {
-            var builder = WebApplication.CreateBuilder(args);
+	public class Program
+	{
+		public static void Main(string[] args)
+		{
+			var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
+			// Add services to the container.
 
-            builder.Services.AddDbContext<ApplicationDbContext>(options =>
-            {
-                string connectionString = builder.Configuration.GetConnectionString("BlazorEcommerce")
-                            ?? throw new Exception("ConnectionString bulunamadý!");
+			builder.Services.AddDbContext<ApplicationDbContext>(options =>
+			{
+				string connectionString = builder.Configuration.GetConnectionString("BlazorEcommerce")
+							?? throw new Exception("ConnectionString bulunamadý!");
 
-                options.UseSqlServer(connectionString);
-            });
+				options.UseSqlServer(connectionString);
+			});
 
-            builder.Services.AddControllersWithViews();
-            builder.Services.AddRazorPages();
+			builder.Services.AddControllersWithViews();
+			builder.Services.AddRazorPages();
 
-            // Swagger
-            builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
+			// Swagger
+			builder.Services.AddEndpointsApiExplorer();
+			builder.Services.AddSwaggerGen();
 
-            // Adding Services
-            builder.Services.AddScoped<IProductService, ProductService>();
-            builder.Services.AddScoped<ICategoryService, CategoryService>();
+			// Adding Services
+			builder.Services.AddScoped<IProductService, ProductService>();
+			builder.Services.AddScoped<ICategoryService, CategoryService>();
 
-            var app = builder.Build();
+			var app = builder.Build();
 
-            app.UseSwaggerUI();
+			app.UseSwaggerUI();
 
-            // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
-            {
-                app.UseWebAssemblyDebugging();
-            }
-            else
-            {
-                app.UseExceptionHandler("/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
-            }
+			// Configure the HTTP request pipeline.
+			if (app.Environment.IsDevelopment())
+			{
+				app.UseWebAssemblyDebugging();
+			}
+			else
+			{
+				app.UseExceptionHandler("/Error");
+				// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+				app.UseHsts();
+			}
 
-            app.UseSwagger();
+			app.UseSwagger();
 
-            app.UseHttpsRedirection();
+			app.UseHttpsRedirection();
 
-            app.UseBlazorFrameworkFiles();
-            app.UseStaticFiles();
+			app.UseBlazorFrameworkFiles();
+			app.UseStaticFiles();
 
-            app.UseRouting();
+			app.UseRouting();
 
 
-            app.MapRazorPages();
-            app.MapControllers();
-            app.MapFallbackToFile("index.html");
+			app.MapRazorPages();
+			app.MapControllers();
+			app.MapFallbackToFile("index.html");
 
-            app.Run();
-        }
-    }
+			app.Run();
+		}
+	}
 }
