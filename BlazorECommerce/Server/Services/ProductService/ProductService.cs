@@ -13,14 +13,19 @@
 		{
 			var response = new ServiceResponse<List<Product>>()
 			{
-				Data = await _applicationDbContext.Products.ToListAsync()
+				Data = await _applicationDbContext.Products
+												  .Include(x => x.Variants)
+											      .ToListAsync()
 			};
 
 			return response;
 		}
 		public async Task<ServiceResponse<Product>> GetProductByIdAsync(int id)
 		{
-			var product = await _applicationDbContext.Products.FindAsync(id);
+			var product = await _applicationDbContext.Products
+													 .Include(x => x.Variants)
+													 .ThenInclude(x => x.ProductType)
+												     .FirstOrDefaultAsync(x => x.Id == id);
 
 			var response = new ServiceResponse<Product>();
 
@@ -42,6 +47,7 @@
 			ServiceResponse<List<Product>> response = new()
 			{
 				Data = await _applicationDbContext.Products
+												  .Include(x => x.Variants)
 												  .Where(x => x.Category.Url.ToLower() == categoryUrl.ToLower())
 												  .ToListAsync()
 			};
