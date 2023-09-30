@@ -59,15 +59,54 @@
         {
             ServiceResponse<List<Product>> response = new()
             {
-                Data = await _applicationDbContext.Products
-                                                  .Where(x => x.Title.ToLower().Contains(searchText.ToLower())
-                                                           || x.Description.ToLower().Contains(searchText.ToLower()))
-                                                  .Include(x => x.Variants)
-                                                  .ToListAsync()
+                Data = await GetProductsBySearchText(searchText)
 
             };
 
             return response;
+        }
+
+        public async Task<ServiceResponse<List<string>>> GetProductSearchSuggestions(string searchText)
+        {
+            List<Product> productsBySearchText = await GetProductsBySearchText(searchText);
+            List<string> result = new();
+
+            foreach (var product in productsBySearchText)
+            {
+                if (product.Title.Contains(searchText, StringComparison.OrdinalIgnoreCase))
+                {
+                    result.Add(product.Title);
+                }
+
+                if (product.Description != null)
+                {
+                    var punctuations = product.Description.Where(char.IsPunctuation).Distinct().ToArray();
+
+                    var words = product.Description.Split().Select(x => x.Trim(punctuations));
+
+                    foreach (var word in words)
+                    {
+                        if (word.Contains(searchText, StringComparison.OrdinalIgnoreCase) && !result.Contains(word.ToLower()))
+                        {
+                            result.Add(word);
+                        }
+                    }
+                }
+            }
+
+            return new ServiceResponse<List<string>>()
+            {
+                Data = result
+            };
+        }
+
+        private async Task<List<Product>> GetProductsBySearchText(string searchText)
+        {
+            return await _applicationDbContext.Products
+                                              .Where(x => x.Title.ToLower().Contains(searchText.ToLower())
+                                                      || x.Description.ToLower().Contains(searchText.ToLower()))
+                                              .Include(x => x.Variants)
+                                              .ToListAsync();
         }
     }
 }
