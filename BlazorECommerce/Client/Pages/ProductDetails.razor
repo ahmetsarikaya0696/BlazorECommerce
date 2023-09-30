@@ -7,21 +7,29 @@
 }
 else
 {
-        <div class="media">
-            <div class="media-img-wrapper mx-auto">
-                <img class="media-img" src="@_product.ImageUrl" alt="@_product.Title"/>
-            </div>
-            <div class="media-body">
-                <h2 class="mb-0">@_product.Title</h2>
-                <p>@_product.Description</p>
-                @* <h4 class="price">@_product.Price ₺</h4> *@
-            </div>
+    <div class="media">
+        <div class="media-img-wrapper mx-auto">
+            <img class="media-img" src="@_product.ImageUrl" alt="@_product.Title" />
         </div>
+        <div class="media-body">
+            <h2 class="mb-0">@_product.Title</h2>
+            <p>@_product.Description</p>
+            @if (GetSelectedVariant() != null)
+            {
+                if (GetSelectedVariant().OriginalPrice > GetSelectedVariant().Price)
+                {
+                    <h6 class="text-muted original-price">$@GetSelectedVariant().OriginalPrice</h6>
+                }
+                <h4 class="text-muted">$@GetSelectedVariant().Price</h4>
+            }
+        </div>
+    </div>
 }
 
 @code {
     private string _message = "Loading...";
     private Product _product;
+    private int currentTypeId = 1;
 
     [Parameter]
     public int Id { get; set; }
@@ -31,8 +39,23 @@ else
         var response = await ProductService.GetProductByIdAsync(Id);
 
         if (!response.Success)
+        {
             _message = response.Message;
+        }
         else
+        {
             _product = response.Data;
+            if (_product.Variants.Count > 0)
+            {
+                currentTypeId = _product.Variants[0].ProductTypeId;
+            }
+        }
+
+    }
+
+    private ProductVariant GetSelectedVariant()
+    {
+        var variant = _product.Variants.FirstOrDefault(x => x.ProductTypeId == currentTypeId);
+        return variant;
     }
 }
