@@ -88,7 +88,7 @@
                     {
                         if (word.Contains(searchText, StringComparison.OrdinalIgnoreCase) && !result.Contains(word.ToLower()))
                         {
-                            result.Add(word);
+                            result.Add(word.ToLower());
                         }
                     }
                 }
