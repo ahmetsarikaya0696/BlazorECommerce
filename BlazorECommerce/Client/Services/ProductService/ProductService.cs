@@ -22,7 +22,7 @@
 
         public async Task GetProductsAsync(string categoryUrl)
         {
-            string requestUrl = "api/Products";
+            string requestUrl = "api/Products/featured";
 
             if (categoryUrl != null)
                 requestUrl += $"/category/{categoryUrl}";
