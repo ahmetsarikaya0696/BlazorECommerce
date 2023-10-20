@@ -25,7 +25,7 @@
             string requestUrl = "api/Products/featured";
 
             if (categoryUrl != null)
-                requestUrl += $"/category/{categoryUrl}";
+                requestUrl = $"/api/Products/category/{categoryUrl}";
 
             var response = await _httpClient.GetFromJsonAsync<ServiceResponse<List<Product>>>(requestUrl);
 
