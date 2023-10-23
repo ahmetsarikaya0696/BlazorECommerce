@@ -74,7 +74,7 @@ namespace BlazorECommerce.Server.Services.ProductService
                 Data = new()
                 {
                     Products = products,
-                    Current = requestedPage,
+                    CurrentPage = requestedPage,
                     Pages = (int)pageCount
                 }
             };
