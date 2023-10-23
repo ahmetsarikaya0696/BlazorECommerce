@@ -1,4 +1,6 @@
-﻿namespace BlazorECommerce.Server.Services.ProductService
+﻿using BlazorECommerce.Shared;
+
+namespace BlazorECommerce.Server.Services.ProductService
 {
     public class ProductService : IProductService
     {
@@ -55,12 +57,26 @@
             return response;
         }
 
-        public async Task<ServiceResponse<List<Product>>> SearchProducts(string searchText)
+        public async Task<ServiceResponse<ProductSearchResult>> SearchProducts(string searchText, int requestedPage)
         {
-            ServiceResponse<List<Product>> response = new()
-            {
-                Data = await GetProductsBySearchText(searchText)
+            var pageResult = 2f;
+            var pageCount = Math.Ceiling((await GetProductsBySearchText(searchText)).Count / pageResult);
+            var products = await _applicationDbContext.Products
+                                                      .Where(x => x.Title.ToLower().Contains(searchText.ToLower())
+                                                              || x.Description.ToLower().Contains(searchText.ToLower()))
+                                                      .Include(x => x.Variants)
+                                                      .Skip((requestedPage - 1) * (int)pageResult)
+                                                      .Take((int)pageResult)
+                                                      .ToListAsync();
 
+            ServiceResponse<ProductSearchResult> response = new()
+            {
+                Data = new()
+                {
+                    Products = products,
+                    Current = requestedPage,
+                    Pages = (int)pageCount
+                }
             };
 
             return response;
