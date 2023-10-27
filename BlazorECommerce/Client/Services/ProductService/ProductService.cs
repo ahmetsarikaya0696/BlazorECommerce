@@ -52,6 +52,7 @@
 
         public async Task SearchProducts(string searchText, int page)
         {
+            LastSearchText = searchText;
             var result = await _httpClient.GetFromJsonAsync<ServiceResponse<ProductSearchResult>>($"api/Products/search/{searchText}/page/{page}");
             if (result?.Data != null)
             {
