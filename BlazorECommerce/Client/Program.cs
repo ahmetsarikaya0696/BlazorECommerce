@@ -1,5 +1,6 @@
 global using BlazorECommerce.Shared;
 global using System.Net.Http.Json;
+using BlazorECommerce.Client.Services.CartService;
 using BlazorECommerce.Client.Services.CategoryService;
 using BlazorECommerce.Client.Services.ProductService;
 using Blazored.LocalStorage;
@@ -22,8 +23,9 @@ namespace BlazorECommerce.Client
 
 			builder.Services.AddScoped<IProductService, ProductService>();
 			builder.Services.AddScoped<ICategoryService, CategoryService>();
+            builder.Services.AddScoped<ICartService, CartService>();
 
-			await builder.Build().RunAsync();
+            await builder.Build().RunAsync();
 		}
 	}
 }
