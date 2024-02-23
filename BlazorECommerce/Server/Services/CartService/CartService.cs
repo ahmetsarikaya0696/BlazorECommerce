@@ -40,6 +40,7 @@ namespace BlazorECommerce.Server.Services.CartService
                     ProductType = productVariant.ProductType.Name,
                     ProductTypeId = productVariant.ProductTypeId,
                     Price = productVariant.Price,
+                    Quantity = cartItem.Quantity,
                 };
 
                 result.Data.Add(cartProduct);

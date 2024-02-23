@@ -85,7 +85,8 @@ else
         var cartItem = new CartItem()
             {
                 ProductId = productVariant.ProductId,
-                ProductTypeId = productVariant.ProductTypeId
+                ProductTypeId = productVariant.ProductTypeId,
+                Quantity = 1
             };
 
         await CartService.AddToCart(cartItem);
