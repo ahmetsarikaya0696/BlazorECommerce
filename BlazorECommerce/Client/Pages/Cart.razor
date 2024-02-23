@@ -20,13 +20,14 @@ else
             <div class="name">
                 <h5><a href="/products/@cartProduct.ProductId">@cartProduct.Title</a></h5>
                 <span>@cartProduct.ProductType</span> <br />
+                <input class="form-control input-quantity" min="1" max="100" type="number" value="@cartProduct.Quantity" @onchange="(ChangeEventArgs e) => UpdateQuantity(e, cartProduct)" />
                 <button class="btn-delete" @onclick="@(() => RemoveProductFromCart(cartProduct.ProductId, cartProduct.ProductTypeId))">Remove</button>
             </div>
-            <div class="cart-product-price">@cartProduct.Price</div>
+            <div class="cart-product-price">$@(cartProduct.Price * cartProduct.Quantity)</div>
         </div>
     }
     <div class="cart-product-price">
-        Total (@cartProducts.Sum(x => x.Quantity)) : $@cartProducts.Sum(x => x.Price)
+        Total (@cartProducts.Sum(x => x.Quantity)) : $@cartProducts.Sum(x => x.Price * x.Quantity)
     </div>
 }
 
@@ -57,5 +58,21 @@ else
         {
             cartProducts = await CartService.GetCartProducts();
         }
+    }
+
+    private async Task UpdateQuantity(ChangeEventArgs e, CartProductResponse cartProduct)
+    {
+        cartProduct.Quantity = int.Parse(e.Value.ToString());
+
+        if (cartProduct.Quantity < 1)
+        {
+            cartProduct.Quantity = 1;
+        }
+        else if (cartProduct.Quantity > 100)
+        {
+            cartProduct.Quantity = 100;
+        }
+
+        await CartService.UpdateQuantity(cartProduct);
     }
 }
