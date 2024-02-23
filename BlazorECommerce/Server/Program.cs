@@ -3,6 +3,7 @@ global using BlazorECommerce.Server.Services.CategoryService;
 global using BlazorECommerce.Server.Services.ProductService;
 global using BlazorECommerce.Shared;
 global using Microsoft.EntityFrameworkCore;
+using BlazorECommerce.Server.Services.CartService;
 
 namespace BlazorECommerce
 {
@@ -32,8 +33,9 @@ namespace BlazorECommerce
 			// Adding Services
 			builder.Services.AddScoped<IProductService, ProductService>();
 			builder.Services.AddScoped<ICategoryService, CategoryService>();
+            builder.Services.AddScoped<ICartService, CartService>();
 
-			var app = builder.Build();
+            var app = builder.Build();
 
 			app.UseSwaggerUI();
 
